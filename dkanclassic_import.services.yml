@@ -1,0 +1,7 @@
+services:
+  dkanclassic_import.post_migration_subscriber:
+    class: '\Drupal\dkanclassic_import\EventSubscriber\MigrateEventsSubscriber'
+    arguments:
+      - '@entity_type.manager'
+    tags:
+      - {name: 'event_subscriber'}

@@ -1,0 +1,33 @@
+{
+    "name": "getdkan/dkanclassic_import",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later",
+    "minimum-stability": "dev",
+    "description": "Import data and content from DKAN Classic via CSVs exported using GetDKAN/dkan_export.",
+    "require": {
+        "drupal/migrate_plus": "^5.1",
+        "drupal/migrate_tools": "^5.0",
+        "drupal/migrate_source_csv": "^3.4"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Social\\": "src"
+        }
+    },
+    "authors": [
+        {
+            "name": "CivicActions",
+            "email": "contact@civicactions.com"
+        }
+    ]
+}

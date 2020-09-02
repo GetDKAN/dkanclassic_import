@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: w2joe-lCTIeXMSYLAQ6xxEX7c-FaP7_kf6SsU2Ssw2w
+id: dkanclassic
+label: 'DKAN Classic CSVs'
+description: 'A container for imported related to DKAN Classic.'
+source_type: null
+module: null
+shared_configuration: null
