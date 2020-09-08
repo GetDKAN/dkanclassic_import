@@ -94,10 +94,10 @@ class MigrateEventsSubscriber implements EventSubscriberInterface {
         // Log updated UUIDs.
         $updated_count = count($updated_uuids);
         if ($updated_count > 0) {
-          \Drupal::logger('dkanclassic_import')->debug("for user @uid, @count datasets were updated: @missing_uuids.", [
+          \Drupal::logger('dkanclassic_import')->debug("for user @uid, @count datasets were updated: @Updated_uuids.", [
             '@uid' => $uid,
-            '@count' => $missing_count,
-            '@Updated_uuids' => implode(', ', $Updated_uuids),
+            '@count' => $updated_count,
+            '@Updated_uuids' => implode(', ', $updated_uuids),
           ]);
         }
 
