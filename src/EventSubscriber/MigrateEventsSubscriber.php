@@ -6,6 +6,7 @@ use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\Event\MigratePostRowSaveEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 
 /**
  * Class MigrateEventsSubscriber.
@@ -31,14 +32,24 @@ class MigrateEventsSubscriber implements EventSubscriberInterface {
   private $nodeStorage;
 
   /**
+   * Logger service.
+   *
+   * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
+   */
+  private $logger;
+
+  /**
    * Constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManager $entityTypeManager
    *   Injected entity type manager.
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerFactory
+   *   Logger service.
    */
-  public function __construct(EntityTypeManager $entityTypeManager) {
+  public function __construct(EntityTypeManager $entityTypeManager, LoggerChannelFactoryInterface $loggerFactory) {
     $this->entityTypeManager = $entityTypeManager;
     $this->nodeStorage = $this->entityTypeManager->getStorage('node');
+    $this->logger = $loggerFactory->get('dkanclassic_import');
   }
 
   /**
@@ -91,7 +102,7 @@ class MigrateEventsSubscriber implements EventSubscriberInterface {
         // Log updated UUIDs.
         $updated_count = count($updated_uuids);
         if ($updated_count > 0) {
-          \Drupal::logger('dkanclassic_import')->debug("for user @uid, @count datasets were updated: @Updated_uuids.", [
+          $this->logger->debug("for user @uid, @count datasets were updated: @Updated_uuids.", [
             '@uid' => $uid,
             '@count' => $updated_count,
             '@Updated_uuids' => implode(', ', $updated_uuids),
@@ -101,7 +112,7 @@ class MigrateEventsSubscriber implements EventSubscriberInterface {
         // Log missing UUIDs.
         $missing_count = count($missing_uuids);
         if ($missing_count > 0) {
-          \Drupal::logger('dkanclassic_import')->error("for user @uid, @count datasets were not found: @missing_uuids.", [
+          $this->logger->error("for user @uid, @count datasets were not found: @missing_uuids.", [
             '@uid' => $uid,
             '@count' => $missing_count,
             '@missing_uuids' => implode(', ', $missing_uuids),
