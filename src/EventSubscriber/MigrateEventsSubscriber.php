@@ -1,11 +1,10 @@
 <?php
+
 namespace Drupal\dkanclassic_import\EventSubscriber;
 
 use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\Event\MigratePostRowSaveEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Drupal\user\Entity\User;
-use Drupal\metastore\Storage\Data;
 use Drupal\Core\Entity\EntityTypeManager;
 
 /**
