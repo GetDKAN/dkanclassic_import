@@ -31,7 +31,6 @@ class MigrateEventsSubscriber implements EventSubscriberInterface {
    */
   private $nodeStorage;
 
-
   /**
    * Constructor.
    *
@@ -54,7 +53,7 @@ class MigrateEventsSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Check for our specified last node migration and run our flagging mechanisms.
+   * Update dataset autorship after our last migration is run.
    *
    * @param \Drupal\migrate\Event\MigratePostRowSaveEvent $event
    *   The import event object.
@@ -69,22 +68,21 @@ class MigrateEventsSubscriber implements EventSubscriberInterface {
       $updated_uuids = [];
 
       if (!empty($uuids)) {
-        $count = 0;
         foreach (explode(',', $uuids) as $uuid) {
           $nids = $this->nodeStorage->getQuery()
-                                    ->condition('uuid', $uuid)
-                                    ->condition('type', 'data')
-                                    ->condition('field_data_type', 'dataset')
-                                    ->execute();
-          if(empty($nids)) {
+            ->condition('uuid', $uuid)
+            ->condition('type', 'data')
+            ->condition('field_data_type', 'dataset')
+            ->execute();
+          if (empty($nids)) {
             $missing_uuids[] = $uuid;
           }
           else {
             foreach ($nids as $nid) {
               $this->nodeStorage->load($nid)
-                                ->setOwnerId($uid)
-                                ->setRevisionAuthorId($uid)
-                                ->save();
+                ->setOwnerId($uid)
+                ->setRevisionAuthorId($uid)
+                ->save();
 
               $updated_uuids[] = $uuid;
             }
