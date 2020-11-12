@@ -91,7 +91,7 @@ class MigrateEventsSubscriber implements EventSubscriberInterface {
             foreach ($nids as $nid) {
               $this->nodeStorage->load($nid)
                 ->setOwnerId($uid)
-                ->setRevisionAuthorId($uid)
+                ->setRevisionUserId($uid)
                 ->save();
 
               $updated_uuids[] = $uuid;
