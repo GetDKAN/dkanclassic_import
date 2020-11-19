@@ -5,6 +5,7 @@
     "minimum-stability": "dev",
     "description": "Import data and content from DKAN Classic via CSVs exported using GetDKAN/dkan_export.",
     "require": {
+        "getdkan/dkan_roles": "dev-main",
         "drupal/migrate_plus": "^5.1",
         "drupal/migrate_tools": "^5.0",
         "drupal/migrate_source_csv": "^3.4"

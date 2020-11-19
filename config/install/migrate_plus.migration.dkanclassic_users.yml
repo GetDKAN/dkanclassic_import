@@ -10,7 +10,7 @@ migration_group: dkanclassic
 label: 'DKAN Classic User migration from CSV'
 source:
   plugin: csv
-  path: 'public://dkanclassic-users.csv'
+  path: 'private://dkanclassic-users.csv'
   header_row_count: 1
   ids:
     - uid
@@ -22,6 +22,15 @@ process:
   created: created
   access: last_access
   login: last_login
+  roles:
+    plugin: static_map
+    bypass: true
+    source: roles
+    map:
+      content creator: data_publisher
+      editor: data_publisher
+      site manager: site_manager
+      administrator: administrator
   field_about: about
   uuids: uuids
 destination:
